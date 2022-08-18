@@ -1,9 +1,4 @@
-def reset(grid):
-    for key, value in grid:
-        grid[key] = " "
-
-def finish(grid):
-    lines = [
+WIN_LINES = [
     [0, 1, 2],
     [3, 4, 5],
     [6, 7, 8],
@@ -13,47 +8,61 @@ def finish(grid):
     [0, 4, 8],
     [2, 4, 6]
 ]
-    for l in lines:
-        a, b, c = l
-        if (grid[a] == grid[b] == grid[c]) and (grid[a] != " "):
-            return grid[a]
-
-def printGrid():
-    print("  1   2   3")
-    print(f"1 {grid[0]} | {grid[1]} | {grid[2]}")
-    print("  ---------")
-    print(f"2 {grid[3]} | {grid[4]} | {grid[5]}")
-    print("---------")
-    print(f"3 {grid[6]} | {grid[7]} | {grid[8]}")
-
-
-grid = {
-    0: " ",
-    1: " ",
-    2: " ",
-    3: " ",
-    4: " ",
-    5: " ",
-    6: " ",
-    7: " ",
-    8: " ",
+game_board = {
+    0: "0",
+    1: "1",
+    2: "2",
+    3: "3",
+    4: "4",
+    5: "5",
+    6: "6",
+    7: "7",
+    8: "8",
 }
 
+def finish(grid):
+    for l in WIN_LINES:
+        a, b, c = l
+        if (grid[a] == grid[b] == grid[c]):
+            print(f"The winner is {grid[a]}")
+            return True
+    return False
 
+def printGrid(grid):
+    print(f"{grid[0]} | {grid[1]} | {grid[2]}")
+    print("---------")
+    print(f"{grid[3]} | {grid[4]} | {grid[5]}")
+    print("---------")
+    print(f"{grid[6]} | {grid[7]} | {grid[8]}")
 
-
-# loop
 # ask user for a cell
 # check cell is empty
 # change players
 # check answer
 is_playing = True
-while is_playing:
-    printGrid()
-    is_playing = False
+turn = "X"
+turn_number = 0
+while is_playing:    
 
+    printGrid(game_board)
+    print(f"It is {turn}'s turn.")
+    player_input = int(input("please enter cell wanted: "))
+    if (player_input < 0) and (player_input > 8):
+        print("Please enter a number that is beaing displayed")
+    elif game_board[player_input] != str(player_input):
+        print("that postion has already been selected")
+    else:
+        game_board[player_input] = turn
+        turn_number += 1
+        if turn == "X":
+            turn = "O"
+        else:
+            turn = "X"
 
-
-    if finish(grid):
-       is_playing = False 
-print(finish(grid))
+    # Checks end game conditions
+    if finish(game_board):
+        is_playing = False
+    if turn_number > 8:
+        printGrid(game_board)
+        print("Draw")
+        is_playing = False

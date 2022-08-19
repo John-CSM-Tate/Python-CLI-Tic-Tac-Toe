@@ -42,9 +42,8 @@ def printGrid(grid):
 is_playing = True
 turn = "X"
 turn_number = 0
+printGrid(game_board)
 while is_playing:    
-
-    printGrid(game_board)
     print(f"It is {turn}'s turn.")
     player_input = int(input("please enter cell wanted: "))
     if (player_input < 0) and (player_input > 8):
@@ -62,7 +61,8 @@ while is_playing:
     # Checks end game conditions
     if finish(game_board):
         is_playing = False
-    if turn_number > 8:
-        printGrid(game_board)
+    elif turn_number > 8:
         print("Draw")
         is_playing = False
+    
+    printGrid(game_board)

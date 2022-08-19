@@ -24,7 +24,7 @@ def finish(grid):
     for l in WIN_LINES:
         a, b, c = l
         if (grid[a] == grid[b] == grid[c]):
-            print(f"The winner is {grid[a]}")
+            print(f"The winner is {grid[a]}\n")
             return True
     return False
 
@@ -35,21 +35,17 @@ def printGrid(grid):
     print("---------")
     print(f"{grid[6]} | {grid[7]} | {grid[8]}")
 
-# ask user for a cell
-# check cell is empty
-# change players
-# check answer
 is_playing = True
 turn = "X"
 turn_number = 0
 printGrid(game_board)
 while is_playing:    
-    print(f"It is {turn}'s turn.")
-    player_input = int(input("please enter cell wanted: "))
+    print(f"\nIt is {turn}'s turn.")
+    player_input = int(input("Please enter the number in the cell you want: "))
     if (player_input < 0) and (player_input > 8):
-        print("Please enter a number that is beaing displayed")
+        print("Please enter a number that is beaing displayed\n")
     elif game_board[player_input] != str(player_input):
-        print("that postion has already been selected")
+        print("That postion has already been selected\n")
     else:
         game_board[player_input] = turn
         turn_number += 1
@@ -62,7 +58,7 @@ while is_playing:
     if finish(game_board):
         is_playing = False
     elif turn_number > 8:
-        print("Draw")
+        print("Draw\n")
         is_playing = False
     
     printGrid(game_board)

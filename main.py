@@ -1,3 +1,6 @@
+import os
+
+# All the possible winning lines
 WIN_LINES = [
     [0, 1, 2],
     [3, 4, 5],
@@ -20,6 +23,10 @@ game_board = {
     8: "8",
 }
 
+# Clear Termail
+clear = lambda: os.system('cls' if os.name == 'nt' else 'clear')
+
+# Checks for winner
 def finish(grid):
     for l in WIN_LINES:
         a, b, c = l
@@ -28,6 +35,7 @@ def finish(grid):
             return True
     return False
 
+# Prints Grind
 def printGrid(grid):
     print(f"{grid[0]} | {grid[1]} | {grid[2]}")
     print("---------")
@@ -35,30 +43,36 @@ def printGrid(grid):
     print("---------")
     print(f"{grid[6]} | {grid[7]} | {grid[8]}")
 
+# Starting Values
 is_playing = True
 turn = "X"
 turn_number = 0
+clear()
 printGrid(game_board)
-while is_playing:    
+
+# Game Loop
+while is_playing:
+    
     print(f"\nIt is {turn}'s turn.")
     player_input = int(input("Please enter the number in the cell you want: "))
-    if (player_input < 0) and (player_input > 8):
+    if (player_input < 0) and (player_input > 8): # Checks input is in range
         print("Please enter a number that is beaing displayed\n")
-    elif game_board[player_input] != str(player_input):
+    elif game_board[player_input] != str(player_input): # Checks cell is not already taken
         print("That postion has already been selected\n")
-    else:
+    else: 
         game_board[player_input] = turn
         turn_number += 1
         if turn == "X":
             turn = "O"
         else:
             turn = "X"
-
+    
+    clear()
     # Checks end game conditions
     if finish(game_board):
         is_playing = False
     elif turn_number > 8:
         print("Draw\n")
         is_playing = False
-    
+
     printGrid(game_board)
